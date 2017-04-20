@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Stuff</title>
+
+    <link rel="stylesheet" href="bsy-genetic.css">
+  </head>
+
+  <body ng-app="bsy-genetic">
+    <div ng-view autoscroll></div>
+
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/gl-matrix/dist/gl-matrix-min.js"></script>
+    <script src="bsy-graphics/bsy-graphics.js"></script>
+    <script src="bsy-graphics/model/BezierCurve.js"></script>
+    <script src="bsy-graphics/model/Circle.js"></script>
+    <script src="bsy-graphics/model/Rectangle.js"></script>
+    <script src="bsy-graphics/model/World.js"></script>
+    <script src="bsy-graphics/model/WorldObject.js"></script>
+    <script src="bsy-graphics/service/glMatrix.js"></script>
+    <script src="bsy-graphics/view/BezierCurveRenderer.js"></script>
+    <script src="bsy-graphics/view/CircleRenderer.js"></script>
+    <script src="bsy-graphics/view/RectangleRenderer.js"></script>
+    <script src="bsy-graphics/view/Renderer.js"></script>
+    <script src="bsy-graphics/view/WorldRenderer.js"></script>
+
+    <script src="bsy-genetic.js"></script>
+    <script src="evolving-lines/BezierCurveChromosome.js"></script>
+    <script src="evolving-lines/RandomBezierCurve.js"></script>
+    <script src="evolving-lines/RandomBezierCurveRenderer.js"></script>
+    <script src="evolving-lines/evolvingLines.js"></script>
+    <script src="home/home.js"></script>
+    <script src="model/Chromosome.js"></script>
+    <script src="service/FitnessProportionateSelector.js"></script>
+  </body>
+</html>
