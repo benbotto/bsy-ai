@@ -1,7 +1,7 @@
 (function(angular) {
   'use strict';
 
-  angular.module('bsy-genetic')
+  angular.module('bsy-ai')
     .factory('FitnessProportionateSelector', [FitnessProportionateSelectorProducer]);
 
   function FitnessProportionateSelectorProducer() {

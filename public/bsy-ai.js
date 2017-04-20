@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('bsy-genetic', ['ngRoute', 'bsy-graphics'])
+    .module('bsy-ai', ['ngRoute', 'bsy-graphics'])
     .config(['$routeProvider', configRoutes]);
 
   function configRoutes($routeProvider) {

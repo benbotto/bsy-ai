@@ -1,7 +1,7 @@
 (function(angular) {
   'use strict';
 
-  angular.module('bsy-genetic')
+  angular.module('bsy-ai')
     .factory('RandomBezierCurve', [
       'BezierCurve',
       'vec2',
