@@ -4,11 +4,10 @@
   angular.module('bsy-graphics')
     .factory('RandomBezierCurveRenderer', [
       'BezierCurveRenderer',
-      'mat2d',
       RandomBezierCurveRendererProducer
     ]);
 
-  function RandomBezierCurveRendererProducer(BezierCurveRenderer, mat2d) {
+  function RandomBezierCurveRendererProducer(BezierCurveRenderer) {
     /** Renderer implementation for the RandomBezierCurve class. */
     class RandomBezierCurveRenderer extends BezierCurveRenderer {
       /**
@@ -35,7 +34,7 @@
       /**
        * Render the bezier curve.
        */
-      render(transform, totalElapsed, sinceLastRender) {
+      render(transform, totalElapsed) {
         this._totalElapsed = totalElapsed;
         super.render(transform);
       }

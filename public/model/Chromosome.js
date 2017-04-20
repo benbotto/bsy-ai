@@ -37,7 +37,7 @@
         if (index === genes.length)
           genes.push(gene);
         else if (index < genes.length)
-          genes[i] = gene;
+          genes[index] = gene;
         else
           throw new Error('Gene out of bounds.');
 
@@ -54,14 +54,14 @@
       /**
        * Breed this Chromosome instances with another and return a new one.
        */
-      breedWith(partner, mutateRate) {
+      breedWith(/*partner, mutateRate*/) {
         return null;
       }
 
       /**
        * Mutate the gene at index.
        */
-      mutate(index) {
+      mutate(/*index*/) {
       }
     }
 

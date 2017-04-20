@@ -2,9 +2,9 @@
   'use strict';
 
   angular.module('bsy-graphics')
-    .factory('RectangleRenderer', ['Renderer', 'mat2d', 'vec2', 'mat3', RectangleRendererProducer]);
+    .factory('RectangleRenderer', ['Renderer', 'mat2d', RectangleRendererProducer]);
 
-  function RectangleRendererProducer(Renderer, mat2d, vec2, mat3) {
+  function RectangleRendererProducer(Renderer, mat2d) {
     /** Renderer implementation for the Rectangle class. */
     class RectangleRenderer extends Renderer {
       /**
@@ -25,7 +25,7 @@
 
         this.ctx.fillStyle = this.worldObj.fillColor;
         // x, y, width, height.
-        this.ctx.fillRect(-.5, -.5, 1, 1);
+        this.ctx.fillRect(-0.5, -0.5, 1, 1);
       }
     }
 

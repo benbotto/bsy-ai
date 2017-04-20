@@ -10,7 +10,7 @@
       /**
        * Initialize the rectangle.
        */
-      constructor(name = 'Rectangle', fillColor) {
+      constructor(name = 'Rectangle', fillColor = '#000000') {
         super(name, fillColor);
       }
     }

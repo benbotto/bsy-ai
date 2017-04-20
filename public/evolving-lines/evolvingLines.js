@@ -31,18 +31,15 @@
     FitnessProportionateSelector
   ) {
 
-    const vm             = this;
-
     const NUM_CTRL_PTS   = 10;
     const PT_DIST        = 50;
     const NUM_CURVES     = 100;
     const BREED_TIME     = 3000;
-    const MUTATE_RATE    = .05;
+    const MUTATE_RATE    = 0.05;
 
     const canvas         = $window.document.getElementById('linesEasel');
     const ctx            = canvas.getContext('2d');
     let   generation     = 0;
-    let   best           = 0;
     let   population, worldRenderer, distBtwnCurves, worldTrans;
 
     // Set up the canvas's size.
@@ -54,8 +51,8 @@
 
     // Render at 80% scale, and at the center (.1 = (1 - .8) / 2).
     worldTrans = mat2d.create();
-    mat2d.translate(worldTrans, worldTrans, vec2.fromValues(canvas.width * .1, canvas.height / 2));
-    mat2d.scale(worldTrans, worldTrans, vec2.fromValues(.8, .8));
+    mat2d.translate(worldTrans, worldTrans, vec2.fromValues(canvas.width * 0.1, canvas.height / 2));
+    mat2d.scale(worldTrans, worldTrans, vec2.fromValues(0.8, 0.8));
 
     population    = initPopulation();
     worldRenderer = createRenderer(population);
@@ -124,8 +121,8 @@
       const best = Math.max.apply(null,
         population.map(chrom => chrom.getFitness()));
 
-      console.log(`Generation ${generation}.`);
-      console.log(`Best fitness ${best}.`);
+      $window.console.log(`Generation ${generation}.`);
+      $window.console.log(`Best fitness ${best}.`);
     }
 
     /**

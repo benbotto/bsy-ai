@@ -48,7 +48,7 @@
       /**
        * Breed this Chromosome instances with another and return a new one.
        */
-      breedWith(partner, mutateRate = .05) {
+      breedWith(partner, mutateRate = 0.05) {
         const mGenes = this.getGenes();
         const fGenes = partner.getGenes();
         const cGene  = new BezierCurveChromosome(
@@ -57,7 +57,7 @@
         for (let i = 1; i < mGenes.length; ++i) {
           // Half the time the gene comes from the male, half the time
           // from the female.
-          const gene = (Math.random() < .5) ? mGenes[i] : fGenes[i];
+          const gene = (Math.random() < 0.5) ? mGenes[i] : fGenes[i];
           cGene.setGene(i, gene);
 
           // Mutate the gene sometimes.

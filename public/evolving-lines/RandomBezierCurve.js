@@ -9,7 +9,7 @@
       RandomBezierCurveProducer
     ]);
 
-  function RandomBezierCurveProducer(BezierCurve) {
+  function RandomBezierCurveProducer(BezierCurve, vec2, mat2d) {
     /**
      * A Bezier Curve that has random control points.  The points are
      * equidistant and rotated randomly.
@@ -18,7 +18,7 @@
       /**
        * Initialize the curve.
        */
-      constructor(numCtrlPts, pointDist, name = 'RandomBezierCurve', fillColor) {
+      constructor(numCtrlPts, pointDist, name = 'RandomBezierCurve', fillColor = '#000000') {
         super(name, fillColor);
 
         this.pointDist = pointDist;
@@ -33,8 +33,7 @@
        * Create a new random control point at index i.
        */
       setRandomControlPoint(i) {
-        const numPoints = this.getControlPoints().length;
-        let   point;
+        let point;
 
         if (i === 0) {
           // The first point is always at the origin.

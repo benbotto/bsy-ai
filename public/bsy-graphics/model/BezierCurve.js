@@ -13,7 +13,7 @@
       /**
        * Initialize the curve.
        */
-      constructor(name = 'BezierCurve', fillColor) {
+      constructor(name = 'BezierCurve', fillColor = '#000000') {
         super(name, fillColor);
 
         this._ctrlPts  = [];
@@ -66,7 +66,7 @@
        * @param {int} [stepSize=.01] - A step size between 0 and 1 that is
        * effectively the precision of the curve.
        */
-      createCurvePoints(stepSize = .01) {
+      createCurvePoints(stepSize = 0.01) {
         this._curvePts.length = 0;
 
         // A BezierCurve requires at least two points.

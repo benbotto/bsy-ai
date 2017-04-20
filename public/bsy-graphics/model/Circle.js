@@ -10,7 +10,7 @@
       /**
        * Initialize the circle.
        */
-      constructor(name = 'Circle', fillColor) {
+      constructor(name = 'Circle', fillColor = '#000000') {
         super(name, fillColor);
       }
     }
