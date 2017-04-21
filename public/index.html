@@ -6,15 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AI Stuff</title>
 
+    <!-- build:css css/bsy-ai.min.css -->
     <link rel="stylesheet" href="bsy-ai.css">
+    <!-- endbuild -->
   </head>
 
   <body ng-app="bsy-ai">
     <div ng-view autoscroll></div>
 
+    <!-- build:js js/lib.min.js -->
+    <script src="bower_components/gl-matrix/dist/gl-matrix-min.js"></script>
+    <script src="bower_components/babel-polyfill/browser-polyfill.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/gl-matrix/dist/gl-matrix-min.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js js/bsy-ai.min.js -->
     <script src="bsy-graphics/bsy-graphics.js"></script>
     <script src="bsy-graphics/model/BezierCurve.js"></script>
     <script src="bsy-graphics/model/Circle.js"></script>
@@ -37,5 +44,6 @@
     <script src="model/Chromosome.js"></script>
     <script src="model/Neuron.js"></script>
     <script src="service/FitnessProportionateSelector.js"></script>
+    <!-- endbuild -->
   </body>
 </html>
