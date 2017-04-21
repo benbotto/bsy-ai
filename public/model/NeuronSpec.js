@@ -32,16 +32,16 @@ describe('Neuron()', function() {
     it('returns the computed net input.', function() {
       const neuron = new Neuron();
 
-      neuron.pushInput(.5, .5);
-      neuron.pushInput(.8, .1);
-      neuron.pushInput(.2, .6);
+      neuron.pushInput(0.5, 0.5);
+      neuron.pushInput(0.8, 0.1);
+      neuron.pushInput(0.2, 0.6);
       neuron.updateOutput();
 
       // {.5, .8, .2} o {.5, .1, .6} = .45
-      expect(neuron.getNetInput()).toBe(.45);
+      expect(neuron.getNetInput()).toBe(0.45);
 
       // 1/(1+e^(-.45)) = .6106.
-      expect(neuron.getOutput()).toBeCloseTo(.6106);
+      expect(neuron.getOutput()).toBeCloseTo(0.6106);
     });
   });
 
