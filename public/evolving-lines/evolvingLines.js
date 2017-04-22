@@ -30,6 +30,7 @@
     BezierCurveChromosome,
     FitnessProportionateSelector
   ) {
+    const vm = this;
 
     const NUM_CTRL_PTS   = 10;
     const PT_DIST        = 50;
@@ -40,11 +41,19 @@
     const canvas         = $window.document.getElementById('linesEasel');
     const ctx            = canvas.getContext('2d');
     let   generation     = 0;
-    let   population, worldRenderer, distBtwnCurves, worldTrans;
+    let   running        = true;
+    let   population, worldRenderer, distBtwnCurves, worldTrans, intProm;
+
+    // Stop rendering if the component is destroyed (e.g. the user navigates
+    // away).
+    vm.$onDestroy = () => {
+      running = false;
+      $interval.cancel(intProm);
+    };
 
     // Set up the canvas's size.
-    canvas.width   = $window.innerWidth - 50;
-    canvas.height  = $window.innerHeight - 50;
+    canvas.width  = $window.innerWidth - 50;
+    canvas.height = $window.innerHeight - 50;
 
     // Curve positioning.
     distBtwnCurves = canvas.width / NUM_CURVES;
@@ -59,7 +68,7 @@
     report();
     render();
 
-    $interval(function() {
+    intProm = $interval(function() {
       population    = breed(population);
       worldRenderer = createRenderer(population);
       ++generation;
@@ -129,8 +138,10 @@
      * Driver method to render the world at the refresh rate of the device.
      */
     function render() {
-      worldRenderer.render(worldTrans);
-      $window.requestAnimationFrame(render);
+      if (running) {
+        worldRenderer.render(worldTrans);
+        $window.requestAnimationFrame(render);
+      }
     }
   }
 })(window.angular);
