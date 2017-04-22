@@ -13,6 +13,9 @@
       .when('/evolving-lines', {
         template: '<evolving-lines></evolving-lines>'
       })
+      .when('/backpropagate-sine', {
+        template: '<backpropagate-sine></backpropagate-sine>'
+      })
       .otherwise({
         redirectTo: '/'
       });

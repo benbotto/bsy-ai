@@ -12,7 +12,8 @@
     const vm = this;
 
     vm.links = [
-      {href: '/#!/evolving-lines', displayAs: 'Evolving Lines'}
+      {href: '/#!/evolving-lines',     displayAs: 'Evolving Lines'},
+      {href: '/#!/backpropagate-sine', displayAs: 'Learn f(x) = sin(x) with Backpropagation'}
     ];
   }
 })(window.angular);
