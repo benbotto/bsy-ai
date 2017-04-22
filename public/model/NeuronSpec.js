@@ -28,6 +28,33 @@ describe('Neuron()', function() {
     });
   });
 
+  describe('.setWeights()', function() {
+    let neurons;
+
+    beforeEach(function() {
+      neurons = [
+        new Neuron(),
+        new Neuron(),
+        new Neuron(),
+        new Neuron()
+      ];
+
+      for (let i = 1; i < neurons.length; ++i)
+        neurons[0].connectTo(neurons[i], 1 * i);
+    });
+
+    it('throws an error if the wrong number of weights is passed in.', function() {
+      
+      expect(() => neurons[0].setWeights([4]))
+        .toThrowError('Invalid number of weights.');
+    });
+
+    it('updates the weights from top to bottom.', function() {
+      neurons[0].setWeights([4, 5, 6]);
+      expect(neurons[0].getWeights()).toEqual([4, 5, 6]);
+    });
+  });
+
   describe('.pushInput()', function() {
     it('returns the computed net input.', function() {
       const neuron = new Neuron();

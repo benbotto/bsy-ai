@@ -38,6 +38,22 @@
       }
 
       /**
+       * Manually set the weights.  The number of weights must match the number
+       * of connections or an error shall be raised.  The weights should be
+       * between 0 and 1, but this is not enforced.
+       * @param {Number[]} weights - An array of weights.
+       */
+      setWeights(weights) {
+        if (weights.length !== this._connections.length)
+          throw new Error('Invalid number of weights.');
+
+        for (let i = 0; i < this._connections.length; ++i)
+          this._connections[i].weight = weights[i];
+
+        return this;
+      }
+
+      /**
        * Get the net input for this Neuron.
        */
       getNetInput() {
