@@ -42,4 +42,56 @@ describe('NeuralNet()', function() {
       expect(nn.getHiddenWeights()).toEqual(hWeights);
     });
   });
+
+  describe('.train()', function() {
+    let nn;
+
+    beforeEach(function() {
+      // Example data taken from Matt Mazur's guide.
+      // https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/
+      nn = new NeuralNet(2, 2, 2,
+        [0.15, 0.25, 0.20, 0.30, 0.35, 0.35],
+        [0.40, 0.50, 0.45, 0.55, 0.60, 0.60]);
+    });
+
+    describe('.feedForward()', function() {
+      it('pushes inputs through the network and generates new outputs.', function() {
+        nn.feedForward([0.05, 0.1]);
+
+        expect(nn.getOutputs()[0]).toBeCloseTo(0.7513);
+        expect(nn.getOutputs()[1]).toBeCloseTo(0.7729);
+      });
+    });
+
+    describe('.updateTotalError()', function() {
+      it('updates the error after a forward pass.', function() {
+        nn.feedForward([0.05, 0.1]);
+        nn.updateTotalError([0.01, 0.99]);
+        expect(nn.getTotalError()).toBeCloseTo(0.2983);
+      });
+    });
+
+    describe('.backpropagate()', function() {
+      it('updates the weights after a forward pass and error update.', function() {
+        nn.train([0.05, 0.1], [0.01, 0.99]);
+
+        const hWeights = nn.getHiddenWeights();
+        const iWeights = nn.getInputWeights();
+
+        expect(hWeights[0]).toBeCloseTo(0.3589);
+        expect(hWeights[1]).toBeCloseTo(0.5113);
+        expect(hWeights[2]).toBeCloseTo(0.4087);
+        expect(hWeights[3]).toBeCloseTo(0.5614);
+        expect(hWeights[4]).toBeCloseTo(0.5308);
+        expect(hWeights[5]).toBeCloseTo(0.6190);
+
+        expect(iWeights[0]).toBeCloseTo(0.1498);
+        expect(iWeights[1]).toBeCloseTo(0.2498);
+        expect(iWeights[2]).toBeCloseTo(0.1996);
+        expect(iWeights[3]).toBeCloseTo(0.2995);
+        expect(iWeights[4]).toBeCloseTo(0.3456);
+        expect(iWeights[5]).toBeCloseTo(0.3450);
+      });
+    });
+  });
 });

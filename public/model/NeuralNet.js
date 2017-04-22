@@ -30,10 +30,17 @@
        */
       constructor(numIn, numHidden, numOut,
         iWeights = null, hWeights = null) {
-        this._totalError  = 0;
         this._inputLayer  = [];
         this._hiddenLayer = [];
         this._outputLayer = [];
+
+        // This is the total error of the system, which is calculated
+        // after a forward pass during a training run.
+        this._totalError = 0;
+
+        // This is the outputs of the system, which is set after a forward
+        // pass.
+        this._outputs = [];
 
         // Input layer, with a bias at the end.
         for (let i = 0; i < numIn; ++i)
@@ -99,6 +106,151 @@
         return this._hiddenLayer.reduce(
           (acc, neuron) => acc.concat(neuron.getWeights()),
           []);
+      }
+
+      /**
+       * Perform a round of training.
+       */
+      train(inputs, expected, learningRate) {
+        // Feed forward.
+        this.feedForward(inputs);
+
+        // Update the total error.
+        this.updateTotalError(expected);
+
+        // Backpropagate the error, which adjusts the weights.
+        this.backpropagate(expected, learningRate);
+
+        return this.getTotalError();
+      }
+
+      /**
+       * Feed the inputs forward and return the outputs.
+       */
+      feedForward(inputs) {
+        // Reset the inputs/weights from the last training round.
+        [...this._inputLayer, ...this._hiddenLayer, ...this._outputLayer]
+          .forEach(n => n.reset());
+
+        // Set the new inputs (not including bias).
+        for (let i = 0; i < this._inputLayer.length - 1; ++i)
+          this._inputLayer[i].pushInput(inputs[i]);
+
+        // Feed the inputs forward to the hidden layer.
+        this._inputLayer.forEach(n => n.feedForward());
+
+        // Update the outputs for each hidden neuron (excluding bias).
+        for (let i = 0; i < this._hiddenLayer.length - 1; ++i)
+          this._hiddenLayer[i].updateOutput();
+
+        // Feed the hidden outputs forward to the output layer.
+        for (let i = 0; i < this._hiddenLayer.length; ++i)
+          this._hiddenLayer[i].feedForward();
+
+        // Update the outputs.
+        this._outputLayer.forEach(n => n.updateOutput());
+
+        // Store the new outputs.
+        this._outputs = this._outputLayer.map(n => n.getOutput());
+
+        return this.getOutputs();
+      }
+
+      /**
+       * Update the total error after a forward pass.
+       */
+      updateTotalError(expected) {
+        // E_{total} = \sum \frac{1}{2}(target - output)^{2}
+        // Note that the 1/2 is there so that the exponent cancels out when
+        // the derivative is taken.  A learning rate will be used, so the
+        // constant won't matter in the long run.
+        this._totalError = 0.5 * this._outputLayer.reduce(
+          (acc, n, i) => acc + Math.pow(expected[i] - n.getOutput(), 2),
+          0);
+      }
+
+      /**
+       * Backpropagate.
+       * @param {Number[]} expected - An array of expected outputs.
+       * @param {Number} [learningRate=0.5] - An optional learning rate, which
+       * defaults to .5.
+       */
+      backpropagate(expected, learningRate) {
+        // Set the ideal outputs.
+        for (let i = 0; i < this._outputLayer.length; ++i)
+          this._outputLayer[i].setIdeal(expected[i]);
+
+        // Compute the error term for the output neurons.
+        this._outputLayer.forEach(n => n.updateErrorTerm());
+
+        // Compute the error term for the hidden neurons, which rely on the
+        // error terms of the output neurons.  (Excludes bias: Nothing connects
+        // in to a bias node, so nothing depends on its error term.)
+        for (let i = 0; i < this._hiddenLayer.length - 1; ++i)
+          this._hiddenLayer[i].updateErrorTerm();
+
+        // Update the weights between the hidden layer and the output layer.
+        this._hiddenLayer.forEach(n => n.updateWeights(learningRate));
+
+        // Update the weights between the input layer and the hidden.
+        this._inputLayer.forEach(n => n.updateWeights(learningRate));
+      }
+
+      /**
+       * Get the outputs.
+       */
+      getOutputs() {
+        return this._outputs;
+      }
+
+      /**
+       * Get the total error for the system.  Computed after a forward pass.
+       */
+      getTotalError() {
+        return this._totalError;
+      }
+
+      /**
+       * Describe the network.
+       */
+      toString() {
+        let desc = '';
+        let weights;
+
+        desc += `Total error: ${this.getTotalError()}\n`;
+
+        // Print all the neurons.
+        desc += [...this._inputLayer, ...this._hiddenLayer, ...this._outputLayer]
+          .reduce((acc, n) => acc + `${n.toString()}\n`, '');
+
+        // Input to hidden weights.
+        for (let i = 0; i < this._inputLayer.length - 1; ++i) {
+          weights = this._inputLayer[i].getWeights();
+
+          for (let h = 0; h < this._hiddenLayer.length - 1; ++h)
+            desc += `\tWeight_I${i},H${h}: ${weights[h]}\n`;
+        }
+
+        // First bias weight.
+        weights = this._inputLayer[this._inputLayer.length - 1].getWeights();
+        for (let h = 0; h < this._hiddenLayer.length - 1; ++h)
+          desc += `\tWeight_B1,H${h}: ${weights[h]}\n`;
+
+        // Hidden to output weights.
+        desc += '\n';
+        for (let h = 0; h < this._hiddenLayer.length - 1; ++h) {
+          weights = this._hiddenLayer[h].getWeights();
+
+          for (let o = 0; o < this._outputLayer.length; ++o)
+            desc += `\tWeight_H${h},O${o}: ${weights[o]}\n`;
+        }
+
+        // Second bias weight.
+        weights = this._hiddenLayer[this._hiddenLayer.length - 1].getWeights();
+        for (let o = 0; o < this._outputLayer.length; ++o)
+          desc += `\tWeight_B1,O${o}: ${weights[o]}\n`;
+
+        return desc;
       }
     }
     
