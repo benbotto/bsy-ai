@@ -28,6 +28,12 @@
       }
 
       /**
+       * No inputs.
+       */
+      pushInput(input, weight) {
+      }
+
+      /**
        * No error term (nothing connected in).
        */
       updateErrorTerm() {
