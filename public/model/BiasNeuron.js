@@ -30,7 +30,7 @@
       /**
        * No inputs.
        */
-      pushInput(input, weight) {
+      pushInput() {
       }
 
       /**
