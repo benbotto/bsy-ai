@@ -142,7 +142,7 @@
       /**
        * Update the weights.
        */
-      updateWeights(learningRate) {
+      updateWeights(learningRate = 0.5) {
         this._connections.forEach(conn =>
           conn.weight -= learningRate * conn.neuron.getErrorTerm() * this.getOutput());
         return this;
