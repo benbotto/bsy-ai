@@ -30,13 +30,14 @@
 
     const canvas  = $window.document.getElementById('bpEasel');
     const ctx     = canvas.getContext('2d');
-    let   running = true;
+    let   running = false;
     let   learningRate, numTrain, trainingData, worldRenderer,
           worldTrans, nn, numHidden, iterations;
 
     vm.learningRate = 0.5;
     vm.numTrain     = 100;
     vm.numHidden    = 12;
+    vm.restart      = restart;
     vm.$onInit      = restart;
     vm.$onDestroy   = () => running = false;
 
@@ -47,6 +48,7 @@
 
     // Initialize or restart the demo.
     function restart() {
+      console.log('restarting');
       learningRate = vm.learningRate;
       numTrain     = vm.numTrain;
       numHidden    = vm.numHidden;
@@ -65,8 +67,11 @@
         };
       });
 
-      // Render the world.
-      render();
+      // Start the render cycle.
+      if (!running) {
+        running = true;
+        render();
+      }
     }
 
     // This is the function to learn, which should have a range of [0,1].

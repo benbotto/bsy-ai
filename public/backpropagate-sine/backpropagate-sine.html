@@ -1,1 +1,19 @@
 <canvas id="bpEasel" class="easel" width="800" height="600"></canvas>
+<div>
+  <form novalidate ng-submit="vm.restart()">
+    <label for="txtLearningRate">Learning Rate:</label>
+    <input id="txtLearningRate" type="number" ng-model="vm.learningRate">
+    <br>
+
+    <label for="txtNumLearn">Number of Training Pairs:</label>
+    <input id="txtNumLearn" type="number" ng-model="vm.numTrain">
+    <br>
+
+    <label for="txtNumLearn">Number of Hiddening Neurons:</label>
+    <input id="txtNumLearn" type="number" ng-model="vm.numHidden">
+    <br>
+
+    <input type="submit" value="Restart">
+  </form>
+</div>
+
