@@ -1,0 +1,21 @@
+<canvas id="neEasel" class="easel" width="140" height="140"></canvas>
+
+<div>
+  <form novalidate ng-submit="vm.restart()">
+    <label for="txtPopSize">Population Size:</label>
+    <input id="txtPopSize" type="number" ng-model="vm.popSize">
+    <br>
+
+    <label for="txtMutateRate">Mutation Rate:</label>
+    <input id="txtMutateRate" type="number" ng-model="vm.mutateRate">
+    <br>
+
+    <label for="txtNumHidden">Number of Hiddening Neurons:</label>
+    <input id="txtNumHidden" type="number" ng-model="vm.numHidden">
+    <br>
+
+    <input type="submit" value="Restart">
+  </form>
+</div>
+
+<pre>{{vm|json}}</pre>

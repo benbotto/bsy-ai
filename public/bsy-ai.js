@@ -16,6 +16,9 @@
       .when('/backpropagate-sine', {
         template: '<backpropagate-sine></backpropagate-sine>'
       })
+      .when('/neuroevolution', {
+        template: '<neuroevolution></neuroevolution>'
+      })
       .otherwise({
         redirectTo: '/'
       });
