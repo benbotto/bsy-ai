@@ -48,7 +48,6 @@
 
     // Initialize or restart the demo.
     function restart() {
-      console.log('restarting');
       learningRate = vm.learningRate;
       numTrain     = vm.numTrain;
       numHidden    = vm.numHidden;
