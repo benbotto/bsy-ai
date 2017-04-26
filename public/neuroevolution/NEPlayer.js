@@ -35,6 +35,13 @@
       }
 
       /**
+       * Set the player's location.
+       */
+      setLocation(x, y) {
+        this._loc = vec2.fromValues(x, y);
+      }
+
+      /**
        * Move up.
        */
       up() {
