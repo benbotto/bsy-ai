@@ -1,6 +1,16 @@
 <canvas id="neEasel" class="easel" width="140" height="140"></canvas>
 
 <div>
+  Score: <span ng-bind="vm.getScore()"></span>
+  <br>
+  Tick Count: <span ng-bind="vm.getTickCount()"></span>
+  <br>
+  Generation: <span ng-bind="vm.getGeneration() + '.' + vm.getIteration()"></span>
+  <br>
+  Best Fitness: <span ng-bind="vm.getBestFitness()"></span>
+</div>
+
+<div>
   <form novalidate ng-submit="vm.restart()">
     <label for="txtPopSize">Population Size:</label>
     <input id="txtPopSize" type="number" ng-model="vm.popSize">
@@ -10,8 +20,12 @@
     <input id="txtMutateRate" type="number" ng-model="vm.mutateRate">
     <br>
 
-    <label for="txtNumHidden">Number of Hiddening Neurons:</label>
+    <label for="txtNumHidden">Number of Hidden Neurons:</label>
     <input id="txtNumHidden" type="number" ng-model="vm.numHidden">
+    <br>
+
+    <label for="txtTickSpeed">Tick Speed:</label>
+    <input id="txtTickSpeed" type="number" ng-model="vm.tickSpeed">
     <br>
 
     <input type="submit" value="Restart">
