@@ -47,9 +47,21 @@
           this.ctx.stroke();
         }
 
-        // Render the board pieces.  The player is a blue square, the fruits
-        // are red squares.
-        for (let x = 0; x < board.width; ++x) {
+        // Render the board pieces.  The player is a blue square, the fruit
+        // a red square.
+        this.ctx.fillStyle = '#0000FF';
+        this.ctx.fillRect(
+          board.player.getX() * this.squareSize,
+          board.player.getY() * this.squareSize,
+          this.squareSize, this.squareSize);
+
+        this.ctx.fillStyle = '#FF0000';
+        this.ctx.fillRect(
+          board.fruit.getX() * this.squareSize,
+          board.fruit.getY() * this.squareSize,
+          this.squareSize, this.squareSize);
+
+        /*for (let x = 0; x < board.width; ++x) {
           for (let y = 0; y < board.height; ++y) {
             const piece  = board.getPieceAt(x, y);
             const colors = [null, '#FF0000', '#00FF00'];
@@ -59,7 +71,7 @@
               this.ctx.fillRect(x * this.squareSize, y * this.squareSize, this.squareSize, this.squareSize);
             }
           }
-        }
+        }*/
       }
     }
 
