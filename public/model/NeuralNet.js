@@ -99,6 +99,43 @@
       }
 
       /**
+       * Set the input weights manually.
+       */
+      setInputWeights(iWeights) {
+        // Including bias.
+        const numIn     = this._inputLayer.length + 1;
+        // Not including bias.
+        const numHidden = this._hiddenLayer.length;
+
+        // Make sure the right number of weights were passed in.
+        if (iWeights.length !== numIn * numHidden)
+          throw new Error('Incorrect number of input weights.');
+
+        for (let i = 0; i < numIn; ++i) {
+          this._inputLayer[i].setWeights(
+            iWeights.slice(numHidden * i, numHidden * i + numHidden));
+        }
+      }
+
+      /**
+       * Set the hidden weights manually.
+       */
+      setHiddenWeights(hWeights) {
+        // Including bias.
+        const numHidden = this._hiddenLayer.length + 1;
+        const numOut    = this._outputLayer.length;
+
+        // Make sure the right number of weights were passed in.
+        if (hWeights.length !== numHidden * numOut)
+          throw new Error('Incorrect number of hidden weights.');
+
+        for (let i = 0; i < numHidden; ++i) {
+          this._hiddenLayer[i].setWeights(
+            hWeights.slice(numOut * i, numOut * i + numOut));
+        }
+      }
+
+      /**
        * Get an array of all the hidden neurons' weights, including the bias
        * neuron's weights.
        */
